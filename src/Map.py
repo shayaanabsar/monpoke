@@ -1,9 +1,10 @@
 from Constants import *
 from MonPoke import *
 from random import choices
+from PickUp import *
 
 def generate_map_component():
-	return choices(list(MapItems), weights=(90, 2, 3, 1), k=1)[0]
+	return choices(list(MapItems), weights=(90, 2, 3, 1, 1), k=1)[0]
 
 
 def generate_monpoke_type():
@@ -11,12 +12,16 @@ def generate_monpoke_type():
 	               weights=(13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1),
 	               k=1)[0]
 
-
+def generate_pickup_type():
+	return choices(list(PickUpTypes),
+	               weights=(5, 4, 3, 2, 1),
+	               k=1)[0]
 class Map:
 
 	def __init__(self):
 		self.map_components = {(0, 0): MapItems.GRASS}
 		self.monpokes = {}
+		self.pickups = {}
 
 	def draw_map(self, player):
 		for j in range(player.y_pos - 5, player.y_pos + 5):
@@ -32,13 +37,21 @@ class Map:
 							monpoke = MonPoke(type_, j, i)
 							self.monpokes[(j, i)] = monpoke
 
+						if self.map_components[(j, i)]  == MapItems.PICKUP:
+							type_ = generate_pickup_type()
+							pickup = PickUp(type_)
+							self.pickups[(j, i)] = pickup
+							
 					if self.map_components[(j, i)] == MapItems.GRASS:
-						print('🟥', end='')
+						print('🟩', end='')
 					elif self.map_components[(j, i)] == MapItems.HOUSE:
 						print('🏠', end='')
 					elif self.map_components[(j, i)] == MapItems.TREE:
 						print('🌳', end='')
 					elif self.map_components[(j, i)] == MapItems.MONPOKE:
 						print(self.monpokes[(j, i)], end='')
+					elif self.map_components[(j, i)] == MapItems.PICKUP:
+						print(self.pickups[(j, i)], end='')
 
 			print('')
+

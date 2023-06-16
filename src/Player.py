@@ -1,6 +1,7 @@
 from Constants import *
-from InventoryItem import *
+from PickUp import *
 from MonPoke import *
+from copy import copy
 
 class Player:
 
@@ -9,11 +10,18 @@ class Player:
 		self.y_pos = y_pos
 		self.health = health
 		self.captured_monpokes = [CapturedMonPoke(MonPokeTypes.SHOHAM)]
-		self.inventory = [InventoryItem(InventoryTypes.BAGUETTE)]
+		self.inventory = [PickUp(PickUpTypes.BAGUETTE)]
 
-	def add_item(self, item):
-		self.inventory.append(item)
-		print(f"{item} added to {self.name}'s inventory.")
+	def fight(self):
+		return self.captured_monpokes[0].fight()
+			
+	def use_pickups(self):
+		for i, pickup in enumerate(self.inventory):
+			for j, monpoke in enumerate(self.captured_monpokes):
+				self.captured_monpokes[j].health = min(100, self.captured_monpokes[j].health+pickup.use_pickup())
+				
+		self.inventory = []
+			
 
 	def use_item(self, item, target, number):
 		if item in self.inventory:

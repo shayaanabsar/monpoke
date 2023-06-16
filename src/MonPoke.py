@@ -1,9 +1,26 @@
 from Constants import *
+from random import randint, choice
 
 class CapturedMonPoke:
 	def __init__(self, type_, health=100):
 		self.type_ = type_
 		self.health = 100
+
+	def fight(self):
+		option = ''
+		while option not in ('BIG', 'SMALL'):
+			option = input('Enter Attack Option: ').upper()
+#options are
+		#BIG, SMALL, HEAL, RUN
+		
+		if option == 'BIG':
+			self.health -= randint(5, 7)
+			hit  = randint(7, 10)
+		elif option == 'SMALL':
+			self.health -= randint(1, 3)
+			hit = randint(3, 5)
+
+		return hit
 
 	def __str__(self):
 		if self.type_ == MonPokeTypes.SHOHAM:
@@ -15,7 +32,7 @@ class CapturedMonPoke:
 		elif self.type_ == MonPokeTypes.CJEYS:
 			return '🐫'
 		elif self.type_ == MonPokeTypes.SOHAM:
-			return '🐿️'
+			return '🐫'
 		elif self.type_ == MonPokeTypes.ZAC:
 			return '🦩'
 		elif self.type_ == MonPokeTypes.SUDANSHU:
@@ -40,3 +57,15 @@ class MonPoke(CapturedMonPoke):
 		super().__init__(type_, health)
 		self.x_pos = x_pos
 		self.y_pos = y_pos
+
+	def fight(self):
+		option = choice(['BIG', 'SMALL'])
+		
+		if option == 'BIG':
+			self.health -= randint(5, 7)
+			hit  = randint(7, 10)
+		elif option == 'SMALL':
+			self.health -= randint(1, 3)
+			hit = randint(3, 5)
+
+		return hit

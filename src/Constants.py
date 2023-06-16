@@ -1,14 +1,18 @@
 from enum import Enum
 
-class InventoryTypes(Enum):
+class PickUpTypes(Enum):
 	BAGUETTE = 1
+	BURGER = 2
+	PIZZA = 3
+	PRETZEL = 4
+	DOUGHNUT = 5
 
 class MapItems(Enum):
 	GRASS = 1
 	HOUSE = 2
 	TREE = 3
 	MONPOKE = 4
-
+	PICKUP = 5
 
 class MonPokeTypes(Enum):
 	SHOHAM = 1

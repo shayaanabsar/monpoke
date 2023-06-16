@@ -3,3 +3,5 @@ fight subroutine
 pokemon types
 inventory
 healing items in inventory
+
+holy you really cleaned this up lol
