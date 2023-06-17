@@ -30,19 +30,19 @@ class Game:
 				print(f'You : {str(self.player.captured_monpokes[0])}. Health: {self.player.captured_monpokes[0].health}')
 				print(f'Them: {str(self.map.monpokes[(new_y, new_x)])}. Health: {self.map.monpokes[(new_y, new_x)].health}')
 				self.map.monpokes[(new_y, new_x)].health -= self.player.fight()
-
-				if self.map.monpokes[(new_y, new_x)].health  <= 0:
+				
+				if self.map.monpokes[(new_y, new_x)].health  <= 0 or self.player.captured_monpokes[0].health <= 0:
 					break
 					
 				self.player.captured_monpokes[0].health -= self.map.monpokes[(new_y, new_x)].fight()
 				
-				if self.player.captured_monpokes[0].health <= 0:
+				if self.player.captured_monpokes[0].health <= 0 or self.map.monpokes[(new_y, new_x)].health  <= 0:
 					break
-		
+					
 			self.map.monpokes[(new_y, new_x)].health = max(0, self.map.monpokes[(new_y, new_x)].health)
 			self.player.captured_monpokes[0].health = max(0, self.player.captured_monpokes[0].health)
 			
-			if self.map.monpokes[(new_y, new_x)].health < self.player.captured_monpokes[0].health:
+			if self.map.monpokes[(new_y, new_x)].health <= self.player.captured_monpokes[0].health:
 				self.message = 'MonPoke Captured!'
 				captured_monpoke = CapturedMonPoke(self.map.monpokes[(new_y, new_x)].type_, health=self.map.monpokes[(new_y, new_x)].health)
 				self.player.captured_monpokes.appendleft(captured_monpoke)
@@ -50,6 +50,7 @@ class Game:
 				self.map.map_components[(new_y, new_x)] = MapItems.GRASS
 			else:
 				self.message = 'You Lost!'
+
 
 	def pickup(self, new_x, new_y):
 		self.player.inventory.append(self.map.pickups[(new_y, new_x)])
