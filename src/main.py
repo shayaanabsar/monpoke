@@ -3,7 +3,7 @@ from Map import *
 from MonPoke import *
 from Player import *
 from PickUp import *
-
+from time import sleep
 def convert_list(list, health=False):
 	out = ''
 	for item in list:
@@ -49,7 +49,7 @@ while True:
 				print(f'You : {str(player.captured_monpokes[0])}. Health: {player.captured_monpokes[0].health}')
 				print(f'Them: {str(map.monpokes[(new_y, new_x)])}. Health: {map.monpokes[(new_y, new_x)].health}')
 				map.monpokes[(new_y, new_x)].health -= player.fight()
-				
+
 				if map.monpokes[(new_y, new_x)].health  <= 0:
 					break
 					
@@ -63,11 +63,14 @@ while True:
 			
 			if map.monpokes[(new_y, new_x)].health < player.captured_monpokes[0].health:
 				message = 'MonPoke Captured!'
-				player.captured_monpokes.append(map.monpokes[(new_y, new_x)])
+				captured_monpoke = CapturedMonPoke(map.monpokes[(new_y, new_x)].type_, health=map.monpokes[(new_y, new_x)].health)
+				player.captured_monpokes.appendleft(captured_monpoke)
 				del map.monpokes[(new_y, new_x)]
 				map.map_components[(new_y, new_x)] = MapItems.GRASS
 			else:
 				message = f'You Lost!'
+				
+				
 		
 	elif map.map_components[(new_y, new_x)] == MapItems.PICKUP:
 		player.inventory.append(map.pickups[(new_y, new_x)])

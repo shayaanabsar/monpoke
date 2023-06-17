@@ -2,6 +2,7 @@ from Constants import *
 from PickUp import *
 from MonPoke import *
 from copy import copy
+from collections import deque
 
 class Player:
 
@@ -9,7 +10,7 @@ class Player:
 		self.x_pos = x_pos
 		self.y_pos = y_pos
 		self.health = health
-		self.captured_monpokes = [CapturedMonPoke(MonPokeTypes.SHOHAM)]
+		self.captured_monpokes = deque([CapturedMonPoke(MonPokeTypes.SHOHAM)])
 		self.inventory = [PickUp(PickUpTypes.BAGUETTE)]
 
 	def fight(self):

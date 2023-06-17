@@ -4,7 +4,7 @@ from random import randint, choice
 class CapturedMonPoke:
 	def __init__(self, type_, health=100):
 		self.type_ = type_
-		self.health = 100
+		self.health = health
 
 	def fight(self):
 		option = ''
