@@ -4,6 +4,8 @@ from MonPoke import *
 from Player import *
 from PickUp import *
 from time import sleep
+import pygame
+from pygame.locals import QUIT
 
 def convert_list(list, health=False):
 	out = ''
@@ -91,3 +93,16 @@ class Game:
 			print(convert_list(self.player.inventory))
 			
 			self.handle_input()
+
+	def play_gui(self):
+		pygame.init()
+		screen = pygame.display.set_mode((200, 200))
+		screen.fill((25,255,64))
+		while True:
+			for event in pygame.event.get():
+				if event.type == QUIT:
+					pygame.quit()
+					sys.exit()
+
+			self.map.draw_gui(self.player, screen)
+			pygame.display.update()

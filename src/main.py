@@ -1,4 +1,4 @@
 from Game import *
 
 game = Game()
-game.play()
+game.play_gui()
