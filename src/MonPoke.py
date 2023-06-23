@@ -1,5 +1,6 @@
 from Constants import *
 from random import randint, choice
+import pygame
 
 class CapturedMonPoke:
 	def __init__(self, type_, health=100):
@@ -23,33 +24,26 @@ class CapturedMonPoke:
 		return hit
 
 	def __str__(self):
-		if self.type_ == MonPokeTypes.SHOHAM:
-			return '🍥'
-		elif self.type_ == MonPokeTypes.IBSID:
-			return '🦝'
-		elif self.type_ == MonPokeTypes.SHAYAAN:
-			return '🦧'
-		elif self.type_ == MonPokeTypes.CJEYS:
-			return '🐫'
-		elif self.type_ == MonPokeTypes.SOHAM:
-			return '🐫'
-		elif self.type_ == MonPokeTypes.ZAC:
-			return '🦩'
-		elif self.type_ == MonPokeTypes.SUDANSHU:
-			return '🦗'
-		elif self.type_ == MonPokeTypes.SAMEER:
-			return '🦏'
-		elif self.type_ == MonPokeTypes.ARYAN:
-			return '🦨'
-		elif self.type_ == MonPokeTypes.DAVID:
-			return '🐊'
-		elif self.type_ == MonPokeTypes.ALI:
-			return '🦑'
-		elif self.type_ == MonPokeTypes.DMILS:
-			return '🐉'
-		elif self.type_ == MonPokeTypes.RBROWN:
-			return '🦖'
+		if self.type_ == MonPokeTypes.GIRAFFE:
+			return '🦒'
+		elif self.type_ == MonPokeTypes.SLIME_BALL:
+			return '🟢'
+		elif self.type_ == MonPokeTypes.HEDGEHOG:
+			return '🦔'
+		
+	def blit_image(self, screen, x_coord, y_coord):
+		path = 'monpoke/src/icons/monpokes/' 
 
+		if self.type_ == MonPokeTypes.GIRAFFE:
+			path += 'Giraffe.png'
+		elif self.type_ == MonPokeTypes.SLIME_BALL:
+			path += 'Slime Ball.png'
+		elif self.type_ == MonPokeTypes.HEDGEHOG:
+			path += 'Hedgehog.png'
+
+		img = pygame.image.load(path).convert_alpha()
+		img = pygame.transform.scale(img, (50, 50))
+		screen.blit(img, (x_coord*50, y_coord*50))
 
 class MonPoke(CapturedMonPoke):
 

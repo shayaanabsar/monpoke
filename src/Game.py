@@ -5,7 +5,9 @@ from Player import *
 from PickUp import *
 from time import sleep
 import pygame
+import pygame.freetype
 from pygame.locals import QUIT
+
 
 def convert_list(list, health=False):
 	out = ''
@@ -20,7 +22,6 @@ class Game:
 		self.player = Player()
 		self.map = Map()
 		self.message = ''
-
 
 	def battle(self, new_x, new_y):
 		if self.player.captured_monpokes[0].health <= 0:
@@ -55,9 +56,9 @@ class Game:
 
 
 	def pickup(self, new_x, new_y):
-		self.player.inventory.append(self.map.pickups[(new_y, new_x)])
+		self.player.inventory[self.map.pickups[(new_y, new_x)].type_] += 1
 		del self.map.pickups[(new_y, new_x)]
-		self.map.map_components[(new_y, new_x)] = MapItems.GRASS
+		self.map.map_components[(new_y, new_x)] = MapItems.GRASS_1
 
 	def handle_input(self):
 		move = input().lower()
@@ -96,13 +97,45 @@ class Game:
 
 	def play_gui(self):
 		pygame.init()
-		screen = pygame.display.set_mode((200, 200))
-		screen.fill((25,255,64))
+		screen = pygame.display.set_mode((755, 500))
+		font = pygame.font.Font("monpoke/src/font.ttf", 15)
+		pygame.display.set_caption('MonPoke')
+		
 		while True:
+			screen.fill((178, 190, 181))
+			screen.blit(font.render("-----INVENTORY-----", 0, (255, 255, 255)), (505, 10))
+			self.player.blit_inventory(screen)
+		
 			for event in pygame.event.get():
 				if event.type == QUIT:
 					pygame.quit()
-					sys.exit()
+				if event.type == pygame.KEYDOWN:
+					new_x, new_y, new_facing = self.player.x_pos, self.player.y_pos, self.player.direction
+		
+					if event.key == pygame.K_UP:
+						new_y -= 1
+						new_facing = Directions.UP
+					elif event.key == pygame.K_DOWN:
+						new_y += 1
+						new_facing = Directions.DOWN
+					elif event.key == pygame.K_LEFT:
+						new_x -= 1
+						new_facing = Directions.LEFT
+					elif event.key == pygame.K_RIGHT:
+						new_x += 1
+						new_facing = Directions.RIGHT
+					
+					if self.map.map_components[(new_y, new_x)] == MapItems.PICKUP:
+						self.pickup(new_x, new_y)
 
+					if self.map.map_components[(new_y, new_x)] not in (MapItems.GRASS_1, MapItems.GRASS_2, MapItems.GRASS_3, MapItems.GRASS_4):
+						continue
+
+					self.player.x_pos, self.player.y_pos = new_x, new_y
+					self.player.direction = new_facing
 			self.map.draw_gui(self.player, screen)
 			pygame.display.update()
+			
+			print("\033c", end="")
+			self.map.draw_map(self.player)		
+		

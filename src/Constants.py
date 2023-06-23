@@ -1,30 +1,32 @@
 from enum import Enum
 
+
+
+class Directions(Enum):
+	UP = 1
+	DOWN = 2
+	LEFT = 3
+	RIGHT = 4
+
 class PickUpTypes(Enum):
 	BAGUETTE = 1
-	BURGER = 2
-	PIZZA = 3
-	PRETZEL = 4
-	DOUGHNUT = 5
+	APPLE = 2
+	CABBAGE = 3
+	CAKE = 4
+	CHICKEN = 5
 
 class MapItems(Enum):
-	GRASS = 1
-	HOUSE = 2
-	TREE = 3
-	MONPOKE = 4
-	PICKUP = 5
+	GRASS_1 = 1
+	GRASS_2 = 2
+	GRASS_3 = 3
+	GRASS_4 = 4
+	TREE = 5
+	FLOWER = 6
+	MONPOKE = 7
+	PICKUP = 8
+
 
 class MonPokeTypes(Enum):
-	SHOHAM = 1
-	IBSID = 2
-	SHAYAAN = 3
-	CJEYS = 4
-	SOHAM = 5
-	ZAC = 6
-	SUDANSHU = 7
-	SAMEER = 8
-	ARYAN = 9
-	DAVID = 10
-	ALI = 11
-	DMILS = 12
-	RBROWN = 13
+	SLIME_BALL = 1
+	GIRAFFE = 2
+	HEDGEHOG = 3
