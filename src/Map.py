@@ -5,7 +5,7 @@ from PickUp import *
 import pygame
 
 def generate_map_component():
-	return choices(list(MapItems), weights=(30, 30, 30, 30, 2, 3, 0.001, 1), k=1)[0]
+	return choices(list(MapItems), weights=(30, 30, 30, 30, 2, 3, 1, 1), k=1)[0]
 
 
 def generate_monpoke_type():

@@ -7,6 +7,16 @@ class CapturedMonPoke:
 		self.type_ = type_
 		self.health = health
 
+	def big_attack(self):
+		self.health -= randint(5, 7)
+		hit  = randint(7, 10)
+		return hit
+
+	def small_attack(self):
+		self.health -= randint(1, 3)
+		hit = randint(3, 5)
+		return hit
+		
 	def fight(self):
 		option = ''
 		while option not in ('BIG', 'SMALL'):
@@ -31,8 +41,10 @@ class CapturedMonPoke:
 		elif self.type_ == MonPokeTypes.HEDGEHOG:
 			return '🦔'
 		
-	def blit_image(self, screen, x_coord, y_coord):
-		path = 'monpoke/src/icons/monpokes/' 
+	def blit_image(self, screen, x_coord, y_coord, no_background=False):
+		path = 'monpoke/src/icons/'
+		if no_background: path += 'alpha_monpokes/'
+		else: path += 'monpokes/'
 
 		if self.type_ == MonPokeTypes.GIRAFFE:
 			path += 'Giraffe.png'

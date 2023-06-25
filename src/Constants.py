@@ -1,21 +1,21 @@
-from enum import Enum
+from enum import IntEnum
 
 
 
-class Directions(Enum):
+class Directions(IntEnum):
 	UP = 1
 	DOWN = 2
 	LEFT = 3
 	RIGHT = 4
 
-class PickUpTypes(Enum):
+class PickUpTypes(IntEnum):
 	BAGUETTE = 1
 	APPLE = 2
 	CABBAGE = 3
 	CAKE = 4
 	CHICKEN = 5
 
-class MapItems(Enum):
+class MapItems(IntEnum):
 	GRASS_1 = 1
 	GRASS_2 = 2
 	GRASS_3 = 3
@@ -26,7 +26,7 @@ class MapItems(Enum):
 	PICKUP = 8
 
 
-class MonPokeTypes(Enum):
+class MonPokeTypes(IntEnum):
 	SLIME_BALL = 1
 	GIRAFFE = 2
 	HEDGEHOG = 3
